@@ -19,10 +19,14 @@ class Siswa_model extends CI_Model
     {
         return [
             [   'field' => 'nis',
-                'label' => 'nis',
-                'rules' => 'is_unique[siswa.nis]']
+                'label' => 'Nis',
+                'rules' => 'is_unique[siswa.nis]|numeric'],
+            [   'field' => 'nama_siswa',
+                'label' => 'Nama Siswa',
+                'rules' => 'required']
         ];
     }
+
     function get_all()
     {
         return $this->db->get('siswa')->result();
