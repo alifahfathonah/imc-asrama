@@ -18,18 +18,19 @@
     <?php $this->load->view('partial/breadcumb') ?>
     <section class="content container-fluid">
         <!-- CONTENT AREA -->
-        <div class="box box-primary">
-          <div class="box-header with-border">
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i>&nbsp;Tambah Baru</button>
-
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fa fa-minus"></i></button>
-            </div>
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <div class="flash-data" data="<?= $this->session->flashdata('message') ?>"></div>
+          <div class="flash-error" data="<?= $this->session->flashdata('error') ?>"></div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i>&nbsp;Tambah Baru</button>
+          <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
           </div>
-          <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body" style="">
+          <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>No</th>
@@ -53,7 +54,8 @@
                 <?php endforeach; ?>
                 </tfoot>
               </table>
-          </div>
+        </div>
+      </div>
           <!-- MODAL TAMBAH -->
           <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
@@ -160,6 +162,24 @@
         kode = $(this).attr('nilai');
         $('.delete').attr('href', '<?= base_url('kelas/delete/') ?>'+kode);
       });
+
+      const flashdata = $('.flash-data').attr('data');
+      if (flashdata) {
+        swal({
+          type: 'success',
+          title: 'Data Kelas',
+          text: 'Berhasil '+flashdata
+        });
+      }
+
+      const error = $('.flash-error').attr('data');
+      if (error) {
+        swal({
+          type: 'error',
+          title: 'Data Kelas',
+          text: error
+        });
+      }
     </script>
 </body>
 </html>

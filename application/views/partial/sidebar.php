@@ -37,7 +37,7 @@
         <li><a href="#">
           <i class="fa fa-link"></i> <span>Another Link</span></a>
         </li>
-        <li class="treeview <?php echo $this->uri->segment(0) == NULL ? 'active': '' ?>" >
+        <li class="treeview <?php echo $this->uri->segment(1) == 'kelas' || $this->uri->segment(1) == 'siswa' ? 'active': '' ?>" >
           <a href="#"><i class="fa fa-book"></i> <span>Master Data</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -47,7 +47,9 @@
             <li class="<?php echo $this->uri->segment(1) == 'kelas' ? 'active': '' ?>">
               <a href="<?= base_url('kelas') ?>"><i class="fa fa-building-o"></i> Data Kelas</a>
             </li>
-            <li><a href="#"><i class="fa fa-users"></i> Data Siswa</a></li>
+            <li  class="<?php echo $this->uri->segment(1) == 'siswa' ? 'active': '' ?>">
+              <a href="<?= base_url('siswa') ?>"><i class="fa fa-user"></i> Data Siswa</a>
+            </li>
           </ul>
         </li>
       </ul>

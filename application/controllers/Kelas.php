@@ -20,21 +20,41 @@ class Kelas extends CI_Controller
 
     public function add()
     {
-        $kelas = array('nama_kelas' => $this->input->post('kelas'));
-        $this->Kelas_model->insert($kelas);
+        $this->form_validation->set_rules('kelas', 'kelas', 'required|is_unique[kelas.nama_kelas]');
+        if ($this->form_validation->run() == true) {
+            $data = array('nama_kelas' => $this->input->post('kelas'));
+            $this->Kelas_model->insert($data);
+            $this->session->set_flashdata('message', 'ditambahkan');
+        }else {
+            $this->session->set_flashdata('error', 'Nama kelas sudah terdaftar!');
+        }
         redirect('kelas');
     }
 
     public function edit($id)
     {
-        $kelas = array('nama_kelas' => $this->input->post('kelas'));
-        $this->Kelas_model->update($id, $kelas);
+        $data = $this->db->get_where('kelas', ['nama_kelas' => $this->input->post('kelas')])->row();
+
+        if ($data) {
+            $this->session->set_flashdata('error', 'Nama kelas sudah terdaftar!');
+        }else {
+            $kelas = array('nama_kelas' => $this->input->post('kelas'));
+            $this->Kelas_model->update($id, $kelas);
+            $this->session->set_flashdata('message', 'diubah');
+        }
         redirect('kelas');
     }
 
     public function delete($id)
     {
-        $this->Kelas_model->delete($id);
+        $data = $this->db->get_where('siswa', ['kelas_id' => $id])->row();
+
+        if ($data) {
+            $this->session->set_flashdata('error', 'Tidak bisa dihapus!');
+        }else {
+            $this->Kelas_model->delete($id);
+            $this->session->set_flashdata('message', 'dihapus');
+        }
         redirect('kelas');
     }
 }
